@@ -1,39 +1,34 @@
 import tkinter
-
+import tkinter.messagebox
 class SimpleGui:
     def __init__(self):
         # create main window widget
-        self.tk = tkinter.Tk()
+        self.main_window = tkinter.Tk()
         
+        print(dir(self.main_window))
         # set size for window
-        self.tk.geometry("512x512")
+        self.main_window.geometry("512x512")
         
         # set title for window
-        self.tk.title('simple gui')
+        self.main_window.title('simple gui')
         
-        # create frames
-        self.top_frame = tkinter.Frame(self.tk)
-        self.bottom_frame = tkinter.Frame(self.tk)
+        # create button when user click him the show method will excute
+        self.button = tkinter.Button(self.main_window, text='click me to show my name', command=self.show)
         
-        # set labels and put it to top frame
-        self.label1 = tkinter.Label(self.top_frame, text='hello world',borderwidth=2, relief='solid')
-        self.label2 = tkinter.Label(self.top_frame, text='hello mohamed', borderwidth=2, relief='solid')
-        self.label1.pack(ipadx=10, ipady=10, padx=10, pady=10)
-        self.label2.pack(ipadx=10, ipady=10, padx=10, pady=10)
+        # create quit button
+        self.quit = tkinter.Button(self.main_window, text='quit', command=self.main_window.destroy)
         
-        # set labels and put it to bottom fram
-        self.label2 = tkinter.Label(self.bottom_frame, text='my age is 32',borderwidth=2, relief='solid')
-        self.label3 = tkinter.Label(self.bottom_frame, text='bla bla bla', borderwidth=2, relief='solid')
-        self.label2.pack(ipadx=10, ipady=10, padx=10, pady=10, side='left')
-        self.label3.pack(ipadx=10, ipady=10, padx=10, pady=10, side='left')
-        
-        # register frames to main window
-        self.top_frame.pack()
-        self.bottom_frame.pack()
-        
+        # pack buttons
+        self.button.pack(ipadx=20, ipady=20)
+        self.quit.pack(pady=50)
+
         # enter the program to main loop
-        self.tk.mainloop()
-        
+        self.main_window.mainloop()
+    def show(self) -> None:
+        """
+            this function render info dialog box
+        """
+        tkinter.messagebox.showinfo('name', 'my name is mohamed')
 # create instance from simple gui class
 if __name__ == "__main__":
     gui = SimpleGui()
