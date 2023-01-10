@@ -1,35 +1,58 @@
 import tkinter
-import tkinter.messagebox
-class SimpleGui:
+class SimpleConvertGUI:
+    """
+        this program convert distance from kilo to meter
+    """
     def __init__(self):
         # create main window widget
         self.main_window = tkinter.Tk()
         
-        print(dir(self.main_window))
         # set size for window
         self.main_window.geometry("512x512")
         
-        # set title for window
-        self.main_window.title('simple gui')
+        # frames
+        self.top_frame = tkinter.Frame(self.main_window)
+        self.mid_frame = tkinter.Frame(self.main_window)
+        self.bottom_frame = tkinter.Frame(self.main_window)
         
-        # create button when user click him the show method will excute
-        self.button = tkinter.Button(self.main_window, text='click me to show my name', command=self.show)
+        # set top frame widgets
+        self.label = tkinter.Label(self.top_frame, text='enter a distance in kilometers:')
+        self.input = tkinter.Entry(self.top_frame)
+        self.label.pack(side='left')
+        self.input.pack(side='left')
         
-        # create quit button
-        self.quit = tkinter.Button(self.main_window, text='quit', command=self.main_window.destroy)
+        # set mid frame widgets
+        self.value = tkinter.StringVar()
+        self.desc = tkinter.Label(self.mid_frame, text='result = ')
+        self.result = tkinter.Label(self.mid_frame, textvariable=self.value)
+        self.unit = tkinter.Label(self.mid_frame, text='meter')
         
-        # pack buttons
-        self.button.pack(ipadx=20, ipady=20)
-        self.quit.pack(pady=50)
-
-        # enter the program to main loop
+        self.desc.pack(side='left')
+        self.result.pack(side='left')
+        self.unit.pack(side='left')
+        
+        # set bottom frame widgets
+        self.convert_button = tkinter.Button(self.bottom_frame, text='convert', command=self.convert)
+        self.quit = tkinter.Button(self.bottom_frame, text='quit', command=self.main_window.destroy)
+        
+        self.convert_button.pack(side='left', padx=20)
+        self.quit.pack(side='left')
+        
+        # pack frames
+        self.top_frame.pack()
+        self.mid_frame.pack(pady=20)
+        self.bottom_frame.pack()
+        
+        # enter tkinter to main loop
         self.main_window.mainloop()
-    def show(self) -> None:
+    def convert(self):
         """
-            this function render info dialog box
+        this function convert distance from kilo to meter
         """
-        tkinter.messagebox.showinfo('name', 'my name is mohamed')
+        distance = float(self.input.get())
+        meter = distance * 1000
+        self.value.set(meter)
 # create instance from simple gui class
 if __name__ == "__main__":
-    gui = SimpleGui()
+    gui = SimpleConvertGUI()
         
